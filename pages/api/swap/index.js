@@ -3,6 +3,11 @@ const { connect, KeyPair, keyStores, utils ,transactions} = nearAPI;
 const BN = require('bn.js');
 require('dotenv').config();
 
+const ACCOUNT_ID = process.env.NEXT_PUBLIC_RELAYER_ACCOUNT_ID_NEAR_TESTNET;
+const networkId = process.env.NEXT_PUBLIC_NETWORK_ID;
+const REF_FI_CONTRACT_ID = 'ref-finance-101.testnet';
+const WRAP_NEAR_CONTRACT_ID = "wrap.testnet"
+const STORAGE_TO_REGISTER_WITH_MFT = "0.1";
 
 export default async function Swap(req,res){
     try{
@@ -146,8 +151,8 @@ export default async function Swap(req,res){
                 transfer: req.body.transfer,
                 sender: req.body.sender,
             }
-            // console.log(order)
-            // res.send(order)
+            console.log(order)
+            //res.send(req.body.params)
             if(order){
               const resultSwap = swap({tokenIn:order['tokenIn'],tokenOut:order['tokenOut'],amountIn:order['amountIn']})
               if(resultSwap){
